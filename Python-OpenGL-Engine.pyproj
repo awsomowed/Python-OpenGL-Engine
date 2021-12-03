@@ -75,7 +75,7 @@
     <Content Include="Models\Square.fbx">
       <Publish>True</Publish>
     </Content>
-    <Content Include="ReadMe.txt" />
+    <Content Include="README.md" />
     <Content Include="requirements.txt" />
     <Content Include="Shaders\Default.frag">
       <Publish>True</Publish>
