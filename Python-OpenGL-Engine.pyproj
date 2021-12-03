@@ -1,0 +1,103 @@
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>8b10552c-c16f-4faf-b244-32cf97f8e992</ProjectGuid>
+    <ProjectHome>.</ProjectHome>
+    <StartupFile>__init__.py</StartupFile>
+    <SearchPath>
+    </SearchPath>
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <Name>Python OpenGL Engine v0.4</Name>
+    <RootNamespace>Python OpenGL Engine v0.4</RootNamespace>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="CompShader.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Drawable.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Mesh.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Model.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Physical.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="SharedFuncs.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Texture.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="__init__.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Models\" />
+    <Folder Include="Textures\" />
+    <Folder Include="Shaders\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Models\car_1.fbx">
+      <Publish>True</Publish>
+    </Content>
+    <Content Include="Models\car_1_hitbox.fbx">
+      <Publish>True</Publish>
+    </Content>
+    <Content Include="Models\car_1_r.fbx">
+      <Publish>True</Publish>
+    </Content>
+    <Content Include="Models\car_2.fbx">
+      <Publish>True</Publish>
+    </Content>
+    <Content Include="Models\Not-Cube.obj">
+      <Publish>True</Publish>
+    </Content>
+    <Content Include="Models\Platform.fbx">
+      <Publish>True</Publish>
+    </Content>
+    <Content Include="Models\Platform.obj">
+      <Publish>True</Publish>
+    </Content>
+    <Content Include="Models\Square.fbx">
+      <Publish>True</Publish>
+    </Content>
+    <Content Include="ReadMe.txt" />
+    <Content Include="Shaders\Default.frag">
+      <Publish>True</Publish>
+    </Content>
+    <Content Include="Shaders\Default.vert">
+      <Publish>True</Publish>
+    </Content>
+    <Content Include="Textures\Car Texture 1 Blue.png" />
+    <Content Include="Textures\Car Texture 1.png">
+      <Publish>True</Publish>
+    </Content>
+    <Content Include="Textures\Car Texture 2.png">
+      <Publish>True</Publish>
+    </Content>
+    <Content Include="Textures\Debug_0.png" />
+    <Content Include="TODO.txt" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
+  <!-- Uncomment the CoreCompile target to enable the Build command in
+       Visual Studio and specify your pre- and post-build commands in
+       the BeforeBuild and AfterBuild targets below. -->
+  <!--<Target Name="CoreCompile" />-->
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+</Project>
