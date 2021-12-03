@@ -70,10 +70,10 @@ A Graphics Engine that I made in Python using OpenGL
 - [x] Drawables can override the textures in the meshes
 
 # Line Totals
-##### 11/18/2021
+#### 11/18/2021
 1177	**TOTAL**
 1130	**Python Total**
- 296	__init__.py
+ 296	\_\_init\_\_.py
  171	CompShader.py
  114	Drawable.py
  114	Mesh.py
