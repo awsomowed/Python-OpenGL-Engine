@@ -11,6 +11,7 @@
     <OutputPath>.</OutputPath>
     <Name>Python OpenGL Engine v0.4</Name>
     <RootNamespace>Python OpenGL Engine v0.4</RootNamespace>
+    <SuppressEnvironmentCreationPrompt>True</SuppressEnvironmentCreationPrompt>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -75,6 +76,7 @@
       <Publish>True</Publish>
     </Content>
     <Content Include="ReadMe.txt" />
+    <Content Include="requirements.txt" />
     <Content Include="Shaders\Default.frag">
       <Publish>True</Publish>
     </Content>
@@ -89,7 +91,6 @@
       <Publish>True</Publish>
     </Content>
     <Content Include="Textures\Debug_0.png" />
-    <Content Include="TODO.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in
