@@ -69,18 +69,19 @@ A Graphics Engine that I made in Python using OpenGL
 - [x] Reuse loaded textures
 - [x] Drawables can override the textures in the meshes
 
+
 # Line Totals
 #### 11/18/2021
 1177	**TOTAL**
 1130	**Python Total**
-\ 296	\_\_init\_\_.py
-\ 171	CompShader.py
-\ 114	Drawable.py
-\ 114	Mesh.py
-\ 209	Model.py
-\ \ 59	Physical.py
-\ \ 50	SharedFuncs.py
-\ 117	Texture.py
-\ \ 47	**GLSL Total**
-\ \ 31	Default.frag
-\ \ 16	Default.vert
+296	\_\_init\_\_.py
+171	CompShader.py
+114	Drawable.py
+114	Mesh.py
+209	Model.py
+59	Physical.py
+50	SharedFuncs.py
+117	Texture.py
+47	**GLSL Total**
+31	Default.frag
+16	Default.vert
