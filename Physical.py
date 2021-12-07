@@ -330,6 +330,9 @@ class Physical(dbl.Drawable):
 	def draw(self,view_matrix):
 		if self.LOADED == True:
 			self.update()
+			#def set_last_matrix(last_matrix):
+			#	self.last_matrix = last_matrix
+			#set_last_matrix(self.model_matrix)
 			self.last_matrix = self.model_matrix
 			self.translate_v3(self.position)
 			self.update_collide_faces()
@@ -357,6 +360,9 @@ class Physical(dbl.Drawable):
 	#	
 	#	#	#
 
+	def do_nothing(self):
+		pass
+
 	def check_collisions(self):
 
 		for obj in (self.space[self.phys_reg[0],self.phys_reg[1],self.phys_reg[2]].get_collide_checks(self)):
@@ -368,25 +374,49 @@ class Physical(dbl.Drawable):
 				#get only faces that have a chance of collision based off of max x, y and z values
 				
 				for index, vertex in enumerate(self.collide_vertices):
-					print(index)
+					#print(index)
 					vertex_last = self.hitbox_vertices[index]*self.last_matrix
+
 					for face in obj.collide_faces:
 						#TEMPORARY SOLUTION
 						f_x_cds = [v.x for v in face]
 						f_x_cds.sort()
-						f_max_x = f_x_cds[0]
-						f_min_x = f_x_cds[2]
+						f_max_x = f_x_cds[2]
+						f_min_x = f_x_cds[0]
 						f_y_cds = [v.y for v in face]
 						f_y_cds.sort()
-						f_max_y = f_y_cds[0]
-						f_min_y = f_y_cds[2]
+						f_max_y = f_y_cds[2]
+						f_min_y = f_y_cds[0]
 						f_z_cds = [v.z for v in face]
 						f_z_cds.sort()
-						f_max_z = f_z_cds[0]
-						f_min_z = f_z_cds[2]
+						f_max_z = f_z_cds[2]
+						f_min_z = f_z_cds[0]
 
-						if f_max_y >= vertex.y and f_max_y <= vertex_last.y:
-							self.velocity.y = -self.velocity.y
+						if f_max_y <= vertex.y:
+							self.do_nothing()
+
+						if f_max_y >= vertex_last.y:
+							self.do_nothing()
+
+						if f_min_y >= vertex.y:
+							self.do_nothing()
+
+						if f_min_y <= vertex_last.y:
+							self.do_nothing()
+
+						#runs if movement between min and max verts
+						if f_max_y <= vertex.y and f_max_y >= vertex_last.y:
+							self.apply_force(*-velocity)
+							obj.apply_force(*velocity)
+							#self.velocity.y = -self.velocity.y
+							#obj.velocity.y = -obj.velocity.y
+							print('Max')
+
+						if f_min_y >= vertex.y and f_min_y <= vertex_last.y:
+							self.apply_force(*-velocity)
+							obj.apply_force(*velocity)
+							#self.velocity.y = -self.velocity.y
+							print('Min')
 						#pass
 						#check x
 						#check y
@@ -412,17 +442,21 @@ class Physical(dbl.Drawable):
 			self.velocity += glm.vec3(0,-0.0001,0)
 			pass
 		for force in self.forces:
+			self.velocity.x += force[0]
+			self.velocity.y += force[1]
+			self.velocity.z += force[2]
 			#Apply forces
 			pass
 		#Apply velocity
 		self.position += self.velocity
 		#Apply momentum loss
-		self.velocity.x -=self.velocity.x/100
-		self.velocity.y -=self.velocity.y/100
-		self.velocity.z -=self.velocity.z/100
+		self.velocity.x -=self.velocity.x/50
+		self.velocity.y -=self.velocity.y/50
+		self.velocity.z -=self.velocity.z/50
 		#self.velocity -= self.velocity/10
 
 	def apply_force(self, f_tuple):
+		#CURRENTLY SIMPLIFIED TO 3 DIRECTION VALUES
 		#((f_point_x,f_point_y,f_point_z),(f_angle,f_elevation),magnitude)
 		if not self.Locked:
 			self.force.append(f_tuple)
