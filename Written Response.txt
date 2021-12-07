@@ -1,0 +1,13 @@
+I feel that a graphics/physics engine meets the first criteria
+
+My project also meets the criterias of:
+Conditionals - I use if, elif, and else statements throughout my project, mainly for collision system checks, but I also use them for error checks and ensuring that paramaters get handled correctly, even with different types, such as a path vs a model object.
+Loops - The main majority of the program is run in an infinite loop, but there are other loops as well, such as loading all the meshes from a model.
+Logic - I mainly use logic in the collision system to check if multiple conditions are true at once.
+Math - This program has a ton of math, especially in the collision/physics system, and also in the graphics shaders and camera class, and more.
+Functions - I use a ton of different functions throught my entire project, and most, if not all, have at least 1 paramater and a return value, if not more.
+List - I use list for several things, such as storing, formatting, and handling model data, but the my favourite use of lists are in my CenteredList and CenteredSpace classes, which are used to keep track of which objets are near each other.
+
+For my presentation I plan on giving a brief and simplified explanation of how my code works (probably will be over 2 minutes) and it will go generally as follows:
+
+the main function is where my program starts, and the first thing it does is initialize everything needed, including 
