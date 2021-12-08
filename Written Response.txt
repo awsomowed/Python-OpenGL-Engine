@@ -8,6 +8,38 @@ Math - This program has a ton of math, especially in the collision/physics syste
 Functions - I use a ton of different functions throught my entire project, and most, if not all, have at least 1 paramater and a return value, if not more.
 List - I use list for several things, such as storing, formatting, and handling model data, but the my favourite use of lists are in my CenteredList and CenteredSpace classes, which are used to keep track of which objets are near each other.
 
-For my presentation I plan on giving a brief and simplified explanation of how my code works (probably will be over 2 minutes) and it will go generally as follows:
+This is the plan for my presentation:
 
-the main function is where my program starts, and the first thing it does is initialize everything needed, including 
+Introduce my program as a very simple graphics/physics engine
+
+Run the program, showing the car falling and bouncing.
+Also show some of the issues, including the car sinking into the ground, and go over how i plan on fixing it
+Also state that the collision system is very simple at the moment, and only really works for this test, but it does show that it can be done
+Mention frame rate
+
+Maybe:
+	Switch to an alternate testing showcase, which demonstrates the rendering ability in greater capacity.
+
+Switch to code view
+Give a fairly brief summary of how the whole program works
+Starts in __init__.main
+Show initialization of different elemnts, specifically camera and drawables/physicals
+Go over the purpose of everything in the main loop
+Mention cleanup code
+Mention resize callback
+Show the input processing
+Show main call, explain that it allows me control over how errors appear
+
+Open Drawable, go over what different things do
+Open Physical, briefly go over centeredlists and centeredspace
+Go over the collision system and everything in Physical, explain that it also uses methods from drawable
+Open Model and go over how models load, explain the unpredicable loading
+Open Mesh and how meshes are loaded and prepared for the gpu, sent to the gpu, and how the meshes are drawn
+
+Open Default.vert and briefly explain
+Open Default.frag and briefly explain
+
+Open CompShader and briefly explain
+Open SharedFuncs and very briefly explain
+
+Mention that there are issues with a lot of small things, and a lot to improve, especially performance, but it does work for what its designed for
