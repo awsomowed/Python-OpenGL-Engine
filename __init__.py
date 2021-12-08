@@ -160,9 +160,9 @@ def main():
 		dbl.Drawable.update_all_perspective(perspective)
 
 		#Timing variables
-		global delta_t
-		delta_t = 0
-		last_f = 0
+
+		#sf.delta_t = 0
+		#last_f = 0
 
 		fps = 1
 
@@ -170,11 +170,11 @@ def main():
 		while not glfw.window_should_close(window):
 			#Update timing
 			cur_t = glfw.get_time()
-			delta_t = cur_t - last_f
-			last_f = cur_t
+			sf.delta_t = cur_t - sf.last_f
+			sf.last_f = cur_t
 
 			#Display FPS
-			fps = (fps*(fps-1)+(1/delta_t))/fps
+			fps = (fps*(fps-1)+(1/sf.delta_t))/fps
 			glfw.set_window_title(window,'Python OpenGL Engine v0.4 [FPS: '+str(round(fps,1))+']')
 
 			#Process input
@@ -278,9 +278,9 @@ def resize_callback(window, width, height):
 	dbl.Drawable.update_all_perspective(perspective)
 
 def process_input(window):
-	global main_cam, delta_t
-	camera_speed = 2.5*delta_t
-	camera_rot = 25*delta_t
+	global main_cam
+	camera_speed = 2.5*sf.delta_t
+	camera_rot = 25*sf.delta_t
 	if glfw.get_key(window, glfw.KEY_ESCAPE) == glfw.PRESS:
 		glfw.set_window_should_close(window, True)
 	if glfw.get_key(window, glfw.KEY_W) == glfw.PRESS:

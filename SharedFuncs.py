@@ -1,6 +1,11 @@
 import traceback as tb
 import time as t
 
+delta_t = 0
+last_f = 0
+
+#Error Printing
+
 def print_tb(trb):
 	print(trb.tb_frame.stack[0])
 	if trb.tb_next:

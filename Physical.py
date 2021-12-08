@@ -9,6 +9,7 @@ import glm
 import math as m
 
 #Custom imports
+import SharedFuncs as sf
 import CompShader as csh
 import Drawable as dbl
 import Model as mdl
@@ -307,33 +308,37 @@ class Physical(dbl.Drawable):
 		#Only on model load
 		for mesh in self.hitbox.meshes:
 			for index in mesh.indices:
+				#self.hitbox_faces.append((
+				#	glm.vec4(mesh.vertices[index[0]],1),
+				#	glm.vec4(mesh.vertices[index[1]],1),
+				#	glm.vec4(mesh.vertices[index[2]],1) ))
 				self.hitbox_faces.append((
-					glm.vec4(mesh.vertices[index[0]],1),
-					glm.vec4(mesh.vertices[index[1]],1),
-					glm.vec4(mesh.vertices[index[2]],1) ))
+					glm.vec3(mesh.vertices[index[0]]),
+					glm.vec3(mesh.vertices[index[1]]),
+					glm.vec3(mesh.vertices[index[2]]) ))
 
 	def update_collide_faces(self):
 		#Every Frame
 		self.collide_faces = []
 		for face in self.hitbox_faces:
 			self.collide_faces.append((
-				face[0]*self.model_matrix,
-				face[1]*self.model_matrix,
-				face[2]*self.model_matrix))
+				self.model_matrix*face[0],
+				self.model_matrix*face[1],
+				self.model_matrix*face[2]))
 
 	def update_collide_vertices(self):
 		#Every Frame
 		self.collide_vertices = []
 		for vertex in self.hitbox_vertices:
-			self.collide_vertices.append(vertex*self.model_matrix)
+			self.collide_vertices.append(self.model_matrix*vertex)
 
 	def draw(self,view_matrix):
 		if self.LOADED == True:
+			self.last_matrix = glm.mat4(self.model_matrix)
 			self.update()
 			#def set_last_matrix(last_matrix):
 			#	self.last_matrix = last_matrix
 			#set_last_matrix(self.model_matrix)
-			self.last_matrix = self.model_matrix
 			self.translate_v3(self.position)
 			self.update_collide_faces()
 			self.update_collide_vertices()
@@ -373,9 +378,11 @@ class Physical(dbl.Drawable):
 				#get only verticies that have a chance of collision based off of max x, y, and z values
 				#get only faces that have a chance of collision based off of max x, y and z values
 				
+				collided = False
+
 				for index, vertex in enumerate(self.collide_vertices):
 					#print(index)
-					vertex_last = self.hitbox_vertices[index]*self.last_matrix
+					vertex_last = self.last_matrix*self.hitbox_vertices[index]
 
 					for face in obj.collide_faces:
 						#TEMPORARY SOLUTION
@@ -392,6 +399,18 @@ class Physical(dbl.Drawable):
 						f_max_z = f_z_cds[2]
 						f_min_z = f_z_cds[0]
 
+						if not vertex_last.x == vertex.x:
+							self.do_nothing()
+
+						if not vertex_last.y == vertex.y:
+							self.do_nothing()
+
+						if not vertex_last.z == vertex.z:
+							self.do_nothing()
+
+						#if not vertex_last.w == vertex.w:
+						#	self.do_nothing()
+
 						if f_max_y <= vertex.y:
 							self.do_nothing()
 
@@ -406,17 +425,22 @@ class Physical(dbl.Drawable):
 
 						#runs if movement between min and max verts
 						if f_max_y <= vertex.y and f_max_y >= vertex_last.y:
-							self.apply_force(*-velocity)
-							obj.apply_force(*velocity)
+							collided = True
+							#self.apply_force((*-self.velocity,))
+							#obj.apply_force(*velocity)
 							#self.velocity.y = -self.velocity.y
 							#obj.velocity.y = -obj.velocity.y
 							print('Max')
 
 						if f_min_y >= vertex.y and f_min_y <= vertex_last.y:
-							self.apply_force(*-velocity)
-							obj.apply_force(*velocity)
+							collided = True
+							#self.apply_force((*-self.velocity,))
+							#obj.apply_force((*self.velocity,))
 							#self.velocity.y = -self.velocity.y
 							print('Min')
+
+				if collided == True:
+					self.apply_force((*-self.velocity,))
 						#pass
 						#check x
 						#check y
@@ -439,7 +463,7 @@ class Physical(dbl.Drawable):
 	def update(self):
 		#Apply gravity
 		if not self.locked:
-			self.velocity += glm.vec3(0,-0.0001,0)
+			self.velocity += glm.vec3(0,-0.025*sf.delta_t,0)
 			pass
 		for force in self.forces:
 			self.velocity.x += force[0]
@@ -458,8 +482,8 @@ class Physical(dbl.Drawable):
 	def apply_force(self, f_tuple):
 		#CURRENTLY SIMPLIFIED TO 3 DIRECTION VALUES
 		#((f_point_x,f_point_y,f_point_z),(f_angle,f_elevation),magnitude)
-		if not self.Locked:
-			self.force.append(f_tuple)
+		if not self.locked:
+			self.forces.append(f_tuple)
 
 	def add_to_space(self,space):
 		self.space = space
