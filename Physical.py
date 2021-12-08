@@ -258,7 +258,7 @@ class Physical(dbl.Drawable):
 
 		self.density = 1
 		self.friction = 1
-		self.elasticity = 1
+		self.elasticity = 2
 
 		self.locked = False
 
@@ -308,10 +308,6 @@ class Physical(dbl.Drawable):
 		#Only on model load
 		for mesh in self.hitbox.meshes:
 			for index in mesh.indices:
-				#self.hitbox_faces.append((
-				#	glm.vec4(mesh.vertices[index[0]],1),
-				#	glm.vec4(mesh.vertices[index[1]],1),
-				#	glm.vec4(mesh.vertices[index[2]],1) ))
 				self.hitbox_faces.append((
 					glm.vec3(mesh.vertices[index[0]]),
 					glm.vec3(mesh.vertices[index[1]]),
@@ -369,8 +365,9 @@ class Physical(dbl.Drawable):
 		pass
 
 	def check_collisions(self):
-
+		print('start loop')
 		for obj in (self.space[self.phys_reg[0],self.phys_reg[1],self.phys_reg[2]].get_collide_checks(self)):
+			print(obj)
 			collide_possible = False
 			#Check if there is possibility of collision (uses max and in x y and z values)
 			#if collide_possible:
@@ -439,8 +436,8 @@ class Physical(dbl.Drawable):
 							#self.velocity.y = -self.velocity.y
 							print('Min')
 
-				if collided == True:
-					self.apply_force((*-self.velocity,))
+			if collided == True:
+				self.apply_force((*-self.velocity*self.elasticity,))
 						#pass
 						#check x
 						#check y
@@ -463,20 +460,23 @@ class Physical(dbl.Drawable):
 	def update(self):
 		#Apply gravity
 		if not self.locked:
-			self.velocity += glm.vec3(0,-0.025*sf.delta_t,0)
+			self.velocity += glm.vec3(0,-0.025,0)
+			#self.velocity += glm.vec3(0,0.001,0)
 			pass
 		for force in self.forces:
+			print("APPLYING FORCE")
 			self.velocity.x += force[0]
 			self.velocity.y += force[1]
 			self.velocity.z += force[2]
 			#Apply forces
 			pass
+		self.forces = []
 		#Apply velocity
-		self.position += self.velocity
+		self.position += self.velocity*sf.delta_t
 		#Apply momentum loss
-		self.velocity.x -=self.velocity.x/50
-		self.velocity.y -=self.velocity.y/50
-		self.velocity.z -=self.velocity.z/50
+		self.velocity.x -= sf.delta_t*self.velocity.x/10
+		self.velocity.y -= sf.delta_t*self.velocity.y/10
+		self.velocity.z -= sf.delta_t*self.velocity.z/10
 		#self.velocity -= self.velocity/10
 
 	def apply_force(self, f_tuple):

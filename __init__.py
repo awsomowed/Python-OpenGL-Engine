@@ -164,6 +164,8 @@ def main():
 		#sf.delta_t = 0
 		#last_f = 0
 
+		main_cam.pos = glm.vec3(0,-3,7)
+
 		fps = 1
 
 		#Main loop
