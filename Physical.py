@@ -396,30 +396,6 @@ class Physical(dbl.Drawable):
 						f_max_z = f_z_cds[2]
 						f_min_z = f_z_cds[0]
 
-						if not vertex_last.x == vertex.x:
-							self.do_nothing()
-
-						if not vertex_last.y == vertex.y:
-							self.do_nothing()
-
-						if not vertex_last.z == vertex.z:
-							self.do_nothing()
-
-						#if not vertex_last.w == vertex.w:
-						#	self.do_nothing()
-
-						if f_max_y <= vertex.y:
-							self.do_nothing()
-
-						if f_max_y >= vertex_last.y:
-							self.do_nothing()
-
-						if f_min_y >= vertex.y:
-							self.do_nothing()
-
-						if f_min_y <= vertex_last.y:
-							self.do_nothing()
-
 						#runs if movement between min and max verts
 						if f_max_y <= vertex.y and f_max_y >= vertex_last.y:
 							collided = True
@@ -460,11 +436,9 @@ class Physical(dbl.Drawable):
 	def update(self):
 		#Apply gravity
 		if not self.locked:
-			self.velocity += glm.vec3(0,-0.025,0)
-			#self.velocity += glm.vec3(0,0.001,0)
-			pass
+			self.velocity += glm.vec3(0,-0.05,0)
 		for force in self.forces:
-			print("APPLYING FORCE")
+			#print("APPLYING FORCE")
 			self.velocity.x += force[0]
 			self.velocity.y += force[1]
 			self.velocity.z += force[2]
