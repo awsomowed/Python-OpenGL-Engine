@@ -2,7 +2,7 @@
 #### v0.4
 #### Brandon Moyer
 
-A Graphics Engine that I made in Python using OpenGL
+A Graphics Engine that I made in Python using OpenGL.
 I have since mainly abandoned this project, and recently I have revisited making an engine from scratch, but this time in C++, as it is much more efficient. I am working on this with a friend, so progress is slow as they are often busy with college.
 
 # TODO List
